@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CNA Ocian — Missão</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: #050814;
+      color: #F8FAFC;
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+    }
+    .bg-cyber-grid {
+      background-image: linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    .circuit-lines {
+      background: radial-gradient(circle at 50% 50%, rgba(12, 19, 43, 0.8) 0%, rgba(5, 8, 20, 1) 100%);
+    }
+    .pixel-art { image-rendering: pixelated; }
+    @keyframes floatSlow { 0%, 100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .animate-float { animation: floatSlow 4s ease-in-out infinite; }
+    .top {
+      background: rgba(3, 11, 24, 0.98);
+      border: 3px solid rgba(87, 217, 255, 0.85);
+      border-left: 0;
+      border-right: 0;
+      border-top: 0;
+      box-shadow: 0 0 18px rgba(87, 217, 255, 0.25);
+      backdrop-filter: blur(8px);
+      padding-top: 0.8rem;
+      padding-bottom: 0.8rem;
+    }
+    .logo {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(20px, 2vw, 30px);
+      letter-spacing: 0.08em;
+      color: #fff;
+      text-shadow: 0 0 12px rgba(87, 217, 255, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.15em;
+    }
+    .logo b { color: #e31c23; }
+    .student-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      border: 2px solid rgba(87, 217, 255, 0.9);
+      background: rgba(6, 18, 32, 0.7);
+      border-radius: 0.9rem;
+      padding: 0.45rem 0.8rem;
+      box-shadow: 0 0 16px rgba(87, 217, 255, 0.18);
+      color: #f8fafc;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 700;
+      min-height: 42px;
+    }
+    .student-badge .user-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.95rem;
+      color: #dfeeff;
+    }
+    .student-badge .user-meta i, .student-badge .stars i {
+      color: #6ee7ff;
+      font-size: 1rem;
+    }
+    .student-badge .divider {
+      width: 1px;
+      height: 1.1rem;
+      background: rgba(148, 163, 184, 0.6);
+    }
+    .student-badge .stars {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: #fbbf24;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+    .student-badge .stars i {
+      color: #fbbf24;
+    }
+    .home {
+      display: grid;
+      place-items: center;
+      min-height: calc(100vh - 140px);
+      padding: 2rem 1rem;
+    }
+    .home-scene {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      width: min(1220px, 100%);
+      min-height: 620px;
+      position: relative;
+    }
+    .mascot {
+      width: min(24vw, 290px);
+      min-width: 180px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      filter: drop-shadow(0 18px 18px rgba(0,0,0,0.5));
+      animation: floatSlow 4s ease-in-out infinite;
+    }
+    .mascot svg {
+      width: 100%;
+      max-width: 290px;
+      height: auto;
+      display: block;
+    }
+    .home-card {
+      width: min(540px, 58vw);
+      min-width: 340px;
+      background: rgba(10, 32, 55, 0.92);
+      border: 3px solid rgba(92, 231, 255, 0.9);
+      border-radius: 1.4rem;
+      padding: 1rem 1.6rem 1.3rem;
+      box-shadow: 0 0 30px rgba(82, 225, 255, 0.18), inset 0 0 16px rgba(92,231,255,0.1);
+      text-align: center;
+    }
+    .brand-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0.7rem;
+      width: min(100%, 460px);
+      min-height: 160px;
+      position: relative;
+      isolation: isolate;
+    }
+    .brand-banner::before {
+      content: none;
+      display: none;
+    }
+    .brand-image {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      max-width: 410px;
+      height: auto;
+      object-fit: contain;
+      image-rendering: pixelated;
+      filter: none;
+      background: transparent;
+      box-shadow: none;
+    }
+    .mission-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(1.2rem, 2.8vw, 2.5rem);
+      margin: 0.6rem 0 0.8rem;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .sub {
+      color: #cfeaff;
+      font-size: 1.15rem;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+    .field {
+      text-align: left;
+      margin-bottom: 0.9rem;
+    }
+    .field label {
+      display: block;
+      color: #dfeaff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.38rem;
+    }
+    .field input {
+      width: 100%;
+      background: rgba(7, 15, 31, 0.9);
+      border: 2px solid rgba(0, 240, 255, 0.8);
+      border-radius: 0.85rem;
+      padding: 0.9rem 0.95rem;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+    }
+    .field input::placeholder { color: #94a3b8; }
+    .btn {
+      border: none;
+      border-radius: 0.85rem;
+      cursor: pointer;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      padding: 1rem 1.2rem;
+      width: 100%;
+      margin-top: 0.6rem;
+      color: white;
+      background: linear-gradient(180deg, #ef2b45 0%, #d60f2d 100%);
+      box-shadow: 0 8px 0 rgba(118, 10, 25, 0.9);
+      transition: transform 0.2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:active { transform: translateY(2px); box-shadow: 0 4px 0 rgba(118,10,25,0.9); }
+    .pixel-badge { font-family: 'Press Start 2P', monospace; }
+    @media (max-width: 980px) {
+      .home-scene { gap: 0.35rem; }
+      .home-card { min-width: 320px; }
+    }
+    @media (max-width: 760px) {
+      .mascot { display: none; }
+      .home-card { width: min(620px, 92vw); min-width: 0; }
+      .sub { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body class="bg-cyber-grid circuit-lines min-h-screen flex flex-col justify-between selection:bg-cnaRed selection:text-white">
+  <header class="top sticky top-0 z-50 px-4 md:px-8 py-3 flex justify-between items-center transition-all duration-300">
+    <div class="logo flex items-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="font-extrabold uppercase tracking-widest" style="color:#e31c23;">CNA</span>
+        <span class="font-extrabold uppercase tracking-widest" style="color:#ffffff;">OCIAN</span>
+      </div>
+      <span class="font-bold uppercase tracking-[0.25em] text-xs text-cyan-300" style="color:#7dd3fc; letter-spacing:0.2em; margin-left:0.5rem; text-shadow: 0 0 4px #7dd3fc, 0 0 8px #7dd3fc, 0 0 12px rgba(125,211,252,0.8);">v2.5 TECH</span>
+    </div>
+    <div id="hud" class="student-badge">
+      <div class="user-meta">
+        <span class="inline-flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>
+        <span id="userBadgeName">Aluno</span>
+      </div>
+      <div class="divider"></div>
+      <div class="stars"><span class="inline-flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="m12 17.27 6.18 3.73-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></span><span id="userBadgeStars">0</span></div>
+    </div>
+  </header>
+  <main class="flex-grow flex items-center justify-center p-4 relative overflow-hidden">
+    <section id="home" class="home w-full">
+      <div class="home-scene">
+        <div class="mascot">
+          <img id="homechar" src="img/personagens/ingles.png" alt="Personagem azul" class="pixel-art" style="width:100%;max-width:290px;height:auto;display:block;">
+        </div>
+        <div class="home-card">
+          <div class="brand-banner" aria-label="Novo CNA">
+            <img src="img/logo.png" alt="Logo CNA" class="brand-image">
+          </div>
+          <h1 class="mission-title">MISSÃO CNA</h1>
+          <p class="sub">Aprenda, responda e avance de fase!</p>
+          <div class="field">
+            <label>Seu nome</label>
+            <input id="name" placeholder="Digite seu nome" />
+          </div>
+          <div class="field">
+            <label>Sua idade</label>
+            <select id="age" style="width:100%;background:rgba(7,15,31,0.9);border:2px solid rgba(0,240,255,0.8);border-radius:0.85rem;padding:0.9rem 0.95rem;color:white;font-size:1rem;outline:none;">
+              <option value="">Selecione sua faixa etária...</option>
+              <option value="5 a 7 anos (Little Kids)">5 a 7 anos (Little Kids)</option>
+              <option value="8 a 10 anos (Kids)">8 a 10 anos (Kids)</option>
+              <option value="11 a 13 anos (Teens)">11 a 13 anos (Teens)</option>
+              <option value="14+ anos (Youth &amp; Adult)">14+ anos (Youth &amp; Adult)</option>
+            </select>
+          </div>
+          <button class="btn" onclick="start()">AVANÇAR</button>
+        </div>
+        <div class="mascot">
+          <img src="img/personagens/robotica.png" alt="Personagem verde" class="pixel-art" style="width:100%;max-width:290px;height:auto;display:block;">
+        </div>
+      </div>
+    </section>
+    <section id="choose" class="choose hidden">
+        <div>
+            <div style="text-align:center">
+                <h1>ESCOLHA SEU DESAFIO!</h1>
+                <p class="sub">Olá, <b id="hello"></b>! Escolha uma aventura.</p>
+            </div>
+            <div class="grid"><button class="choice eng" onclick="openM('eng')">
+                    <div class="speech">Vamos testar seu inglês?</div><img id="blue">
+                    <h2>🇬🇧 INGLÊS</h2>
+                    <p class="sub">Uma aventura por Londres.</p><span class="btn red">JOGAR ▶</span>
+                </button><button class="choice tech" onclick="openM('tech')">
+                    <div class="speech">Bora testar seus conhecimentos em tecnologias?</div><img id="green">
+                    <h2>🤖 PROGRAMAÇÃO E ROBÓTICA</h2>
+                    <p class="sub">Explore a Cybertec.</p><span class="btn blue">JOGAR ▶</span>
+                </button></div>
+        </div>
+    </section>
+    <section id="mapS" class="map hidden">
+        <div class="mapbox">
+            <div id="mt" class="mt"></div><img id="mapimg" class="mapimg">
+            <div id="dots"></div>
+            <div id="stages"></div><img id="player" class="player">
+        </div>
+        <div class="hint">✨ Click on the unlocked stage for the character to walk there.</div>
+        <button class="btn red full" onclick="backHome()" style="max-width: 260px; margin: 12px auto 0; display: block;">← VOLTAR PARA HOME</button>
+    </section>
+    <section id="quizS" class="quiz hidden">
+        <div class="quizcard">
+            <div class="qtop"><span id="qt"></span><span id="qc"></span></div>
+            <div class="bar"><i id="bar"></i></div>
+            <div id="body"></div>
+            <button class="btn red full" onclick="backHome()" style="max-width: 260px; margin: 18px auto 0; display: block;">← VOLTAR PARA HOME</button>
+        </div>
+    </section>
+    <section id="result" class="home hidden">
+        <div class="card result" style="max-width: 760px; width: min(90vw, 700px);">
+            <div class="big">🏆</div>
+            <h1>PARABÉNS!</h1>
+            <p id="rt" class="sub"></p>
+            <div id="resultLevel" class="sub" style="margin-top: 0.7rem; line-height: 1.6;"></div>
+            <div id="resultTeacher" class="sub" style="margin-top: 0.5rem; line-height: 1.5;"></div>
+            <div id="resultTips" class="sub" style="margin-top: 0.7rem; text-align:left; line-height:1.7; font-size:0.98rem;"></div>
+            <div id="stars" class="stars"></div>
+            <button class="btn red full" onclick="sendResultByEmail()">ENVIAR RESULTADO POR E-MAIL</button>
+            <button class="btn red full" onclick="back()">VOLTAR À ESCOLHA</button>
+        </div>
+    </section>
+  </main>
+
+  <footer style="width:100%; text-align:center; padding: 0.9rem 1rem 1.2rem; color:#dfeeff; font-size:0.82rem; letter-spacing:0.04em; background: rgba(3, 11, 24, 0.7); border-top: 1px solid rgba(125, 211, 252, 0.18);">
+    <span>CNA Ocian - Praia Grande / SP | Desafio Pixel v2.0 - Desenvolvido por <a href="https://teamwebtecspace.vercel.app/" target="_blank" rel="noopener noreferrer" style="color:#7dd3fc; text-decoration: underline; font-weight:700;">Teacher Crispim</a>.</span>
+  </footer>
+
+  <script src="js/game.js"></script>
+</body>
+</html>
