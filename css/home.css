@@ -1,0 +1,265 @@
+/* Página inicial / home do jogo CNA Ocian */
+
+body {
+  background: #050814;
+  color: #F8FAFC;
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+}
+
+.bg-cyber-grid {
+  background-image: linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.circuit-lines {
+  background: radial-gradient(circle at 50% 50%, rgba(12, 19, 43, 0.8) 0%, rgba(5, 8, 20, 1) 100%);
+}
+
+.pixel-art { image-rendering: pixelated; }
+
+@keyframes mascoteCresce {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-float { animation: mascoteCresce 1.2s ease-out forwards; }
+
+.top {
+  background: rgba(3, 11, 24, 0.98);
+  border: 3px solid rgba(87, 217, 255, 0.85);
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  box-shadow: 0 0 18px rgba(87, 217, 255, 0.25);
+  backdrop-filter: blur(8px);
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+.logo {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(20px, 2vw, 30px);
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(87, 217, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.15em;
+}
+
+.logo b { color: #e31c23; }
+
+.student-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  border: 2px solid rgba(87, 217, 255, 0.9);
+  background: rgba(6, 18, 32, 0.7);
+  border-radius: 0.9rem;
+  padding: 0.45rem 0.8rem;
+  box-shadow: 0 0 16px rgba(87, 217, 255, 0.18);
+  color: #f8fafc;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  min-height: 42px;
+}
+
+.student-badge .user-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  color: #dfeeff;
+}
+
+.student-badge .user-meta i,
+.student-badge .stars i {
+  color: #6ee7ff;
+  font-size: 1rem;
+}
+
+.student-badge .divider {
+  width: 1px;
+  height: 1.1rem;
+  background: rgba(148, 163, 184, 0.6);
+}
+
+.student-badge .stars {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #fbbf24;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.student-badge .stars i {
+  color: #fbbf24;
+}
+
+.home {
+  display: grid;
+  place-items: end center;
+ 
+ 
+}
+
+.home-scene {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 1rem;
+  width: min(1220px, 100%);
+  min-height: 560px;
+  position: relative;
+  padding-bottom: 0.25rem;
+}
+
+.mascot {
+  --mascot-scale: 0.9;
+  width: auto;
+  min-width: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 18px 18px rgba(0,0,0,0.5));
+  margin-bottom: 0;
+}
+
+.mascot img {
+  width: calc(300px * var(--mascot-scale));
+  max-width: none;
+  height: auto;
+  display: block;
+  transform-origin: center bottom;
+  animation: mascoteCresce 1.2s ease-out forwards;
+}
+
+.home-card {
+  width: min(540px, 58vw);
+  min-width: 340px;
+  background: rgba(10, 32, 55, 0.92);
+  border: 3px solid rgba(92, 231, 255, 0.9);
+  border-radius: 1.4rem;
+  padding: 1rem 1.6rem 1.3rem;
+  box-shadow: 0 0 30px rgba(82, 225, 255, 0.18), inset 0 0 16px rgba(92,231,255,0.1);
+  text-align: center;
+}
+
+.brand-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 0.7rem;
+  width: min(100%, 460px);
+  min-height: 160px;
+  position: relative;
+  isolation: isolate;
+}
+
+.brand-banner::before {
+  content: none;
+  display: none;
+}
+
+.brand-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  max-width: 410px;
+  height: auto;
+  object-fit: contain;
+  image-rendering: pixelated;
+  filter: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.mission-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(1.2rem, 2.8vw, 2.5rem);
+  margin: 0.6rem 0 0.8rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.sub {
+  color: #cfeaff;
+  font-size: 1.15rem;
+  margin-bottom: 1.2rem;
+  font-weight: 500;
+}
+
+.field {
+  text-align: left;
+  margin-bottom: 0.9rem;
+}
+
+.field label {
+  display: block;
+  color: #dfeaff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.38rem;
+}
+
+.field input {
+  width: 100%;
+  background: rgba(7, 15, 31, 0.9);
+  border: 2px solid rgba(0, 240, 255, 0.8);
+  border-radius: 0.85rem;
+  padding: 0.9rem 0.95rem;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
+
+.field input::placeholder { color: #94a3b8; }
+
+.btn {
+  border: none;
+  border-radius: 0.85rem;
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 1rem 1.2rem;
+  width: 100%;
+  margin-top: 0.6rem;
+  color: white;
+  background: linear-gradient(180deg, #ef2b45 0%, #d60f2d 100%);
+  box-shadow: 0 8px 0 rgba(118, 10, 25, 0.9);
+  transition: transform 0.2s ease;
+}
+
+.btn:hover { transform: translateY(-1px); }
+
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 0 rgba(118,10,25,0.9);
+}
+
+.pixel-badge { font-family: 'Press Start 2P', monospace; }
+
+@media (max-width: 980px) {
+  .home-scene { gap: 0.35rem; }
+  .home-card { min-width: 320px; }
+}
+
+@media (max-width: 760px) {
+  .mascot { display: none; }
+  .home-card { width: min(620px, 92vw); min-width: 0; }
+  .sub { font-size: 1rem; }
+}
