@@ -5,15 +5,63 @@ const A = {
   CYBER: "img/mapas/cybertec.png"
 };
 
+const ENGLISH_QUESTIONS = [
+  [
+    ["Complete a frase com a forma correta do verbo to be: \"She ________ a software engineer, and her brothers ________ teachers.\"", ["is / is", "are / is", "is / are", "am / are"], 2],
+    ["Selecione a palavra correta para completar a lacuna: \"Excuse me, where ________ I find the nearest supermarket?\"", ["does", "can", "is", "do"], 1],
+    ["Escolha a expressão correta de rotina diária: \"He usually ________ up at 7:00 AM, but on weekends he ________ in bed until 9:00 AM.\"", ["wakes / stays", "wake / stay", "waking / staying", "woke / stayed"], 0],
+    ["Introduza-se em 2 a 3 frases. Diga seu nome, de onde você é e o que gosta de fazer no tempo livre.", { type: "text", placeholder: "Escreva sua resposta aqui..." }, null],
+    ["Descreva sua rotina diária em 2 a 3 frases usando o simple present (por exemplo: I get up, I work, I study...).", { type: "text", placeholder: "Escreva sua rotina aqui..." }, null]
+  ],
+  [
+    ["Escolha o tempo correto para completar a narrativa: \"While I ________ to work yesterday morning, it ________ to rain heavily.\"", ["was driving / started", "drove / was starting", "drive / starts", "have driven / started"], 0],
+    ["Selecione a opção que melhor completa a frase com verbo modal: \"You ________ wear a helmet while riding a motorcycle; it’s required by law.\"", ["might", "must", "could", "would"], 1],
+    ["Escolha a forma comparativa correta: \"This project is much ________ than the previous one, so we need extra time.\"", ["complexer", "more complex", "most complex", "complex"], 1],
+    ["Pense em uma viagem ou evento memorável do passado. Escreva 3 a 4 frases descrevendo o que aconteceu, usando passado (Simple Past ou Past Continuous).", { type: "text", placeholder: "Escreva sobre o evento aqui..." }, null],
+    ["Responda em 3 a 4 frases: Qual são seus principais objetivos profissionais ou pessoais para os próximos dois anos? Use formas do futuro como will, going to ou hope to.", { type: "text", placeholder: "Escreva seus objetivos aqui..." }, null]
+  ],
+  [
+    ["Selecione a opção que completa corretamente a terceira condicional: \"If we ________ the strategy earlier, we ________ the deadline.\"", ["adjusted / wouldn't miss", "had adjusted / wouldn't have missed", "adjust / won't miss", "have adjusted / didn't miss"], 1],
+    ["Escolha a frase com o uso correto de inversion para ênfase: \"Not only ________ the technical issue, but they also upgraded the entire infrastructure.\"", ["they resolved", "did they resolve", "had resolved they", "they did resolve"], 1],
+    ["Selecione a melhor correspondência de vocabulário para o contexto profissional: \"The company's new policy was designed to ________ collaboration across interdisciplinary teams.\"", ["foster", "strictly eliminate", "deteriorate", "overlook"], 0],
+    ["Leia o prompt e escreva um pequeno parágrafo de 4 a 5 frases: Você acha que a inteligência artificial vai substituir profissionais humanos na educação e na tecnologia, ou ela apenas servirá como ferramenta? Justifique sua opinião.", { type: "text", placeholder: "Escreva seu parágrafo aqui..." }, null],
+    ["Reescreva a frase abaixo usando uma estrutura avançada (como passive voice, inversion ou cleft sentence) para enfatizar a ação destacada: \"The team solved the problem after working continuously for ten hours.\"", { type: "text", placeholder: "Escreva a reescrita aqui..." }, null]
+  ]
+];
+
+const TECH_QUESTIONS = [
+  [
+    ["O que é um algoritmo na programação?", ["Um tipo de tela de computador", "Uma sequência passo a passo de instruções para resolver um problema ou realizar uma tarefa", "Um motor elétrico que gira muito rápido", "Uma pilha que alimenta um circuito"], 1],
+    ["Na programação em blocos (como Scratch ou MakeCode), qual bloco permite que uma ação se repita várias vezes sem precisar reescrever os blocos?", ["se... então", "mudar variável para 0", "repetir / sempre (loop)", "parar todos os atores"], 2],
+    ["Observe este circuito simples: você conecta uma bateria, um interruptor (chave) e um LED. O que acontece quando você abre o interruptor?", ["O LED acende porque a eletricidade passa", "A bateria esquenta", "O LED apaga porque o caminho da corrente elétrica foi interrompido", "O LED fica piscando para sempre"], 2],
+    ["Imagine que você está programando um personagem em um jogo para atravessar a rua. Escreva uma lista passo a passo de 3 a 4 instruções (em português ou blocos) para fazer o personagem chegar em segurança ao outro lado.", { type: "text", placeholder: "Escreva os passos do algoritmo aqui..." }, null],
+    ["Cite dois componentes de entrada (sensores/botões) e dois componentes de saída (luzes/motores/sirenes) usados na robótica. Explique brevemente o que um deles faz.", { type: "text", placeholder: "Escreva os componentes e sua explicação aqui..." }, null]
+  ],
+  [
+    ["Um carrinho robô desviador de obstáculos utiliza um Sensor Ultrassônico HC-SR04. Como esse sensor calcula a distância até um objeto?", ["Medindo a luminosidade do ambiente", "Emitindo uma onda de som de alta frequência e medindo o tempo que ela leva para bater no objeto e voltar", "Tocando fisicamente na parede com um parachoque de metal", "Lendo a mudança de cor no chão"], 1],
+    ["Qual será o valor final da variável x após a execução deste trecho de código em Python?\n\nPython\n\nx = 5\npara i no intervalo(3):\n    x = x + 2", ["5", "8", "11", "15"], 2],
+    ["Ao ligar um LED diretamente em um pino do Arduino ou micro:bit, por que precisamos colocar um resistor em série com o LED?", ["Para fazer o LED brilhar duas vezes mais forte", "Para limitar a corrente elétrica e evitar queimar o LED ou o pino do microcontrolador", "Para mudar a cor da luz do LED", "Para guardar eletricidade extra como se fosse uma bateria"], 1],
+    ["Escreva a lógica (em pseudocódigo ou blocos) para um robô seguidor de linha autônomo que usa dois sensores infravermelhos (Sensor Esquerdo e Sensor Direito) para se manter em cima de uma linha preta.", { type: "text", placeholder: "Escreva a lógica do robô aqui..." }, null],
+    ["Explique a diferença entre um Sinal Digital e um Sinal Analógico em um microcontrolador (como Arduino ou ESP32). Dê um exemplo do mundo real de cada um.", { type: "text", placeholder: "Explique a diferença e dê exemplos reais..." }, null]
+  ],
+  [
+    ["Qual técnica é utilizada para controlar a velocidade de um motor DC conectado a uma ponte H (como a L298N) usando um pino digital do microcontrolador?", ["Conversão Analógico-Digital (ADC)", "Modulação por Largura de Pulso (PWM)", "Comunicação Serial SPI", "Protocolo I2C"], 1],
+    ["Qual é a falha lógica ou erro principal no seguinte código em C++ / Arduino?\n\nC++\n\nvoid loop() {\n    int valorSensor = analogRead(A0);\n    if (valorSensor > 500) {\n        digitalWrite(13, HIGH);\n    }\n}", ["A função analogRead() não pode ser usada dentro do void loop()", "O pino 13 é acionado para HIGH, mas nunca é desligado (LOW) quando valorSensor <= 500", "A variável valorSensor precisa ser obrigatoriamente do tipo float", "No Arduino só se usa ponto e vírgula no final do void loop()"], 1],
+    ["Qual estrutura de dados é mais eficiente para armazenar uma sequência de comandos de movimentos ou histórico de leitura de sensores em Python?", ["Booleano (True/False)", "Inteiro (int)", "Lista / Vetor (List / Array)", "Modo de Pino (pinMode)"], 2],
+    ["Escreva uma função simples em Python ou C++/Arduino que receba a variável distancia_cm de um sensor ultrassônico. Se a distância for menor que 15 cm, o robô deve parar os motores; caso contrário, deve mover para a frente.", { type: "text", placeholder: "Escreva a função do robô aqui..." }, null],
+    ["Explique como uma Máquina de Estados Finitos (FSM) pode ser usada para controlar um robô 4WD com 3 estados: PARADO, NAVEGANDO e DESVIANDO_OBSTACULO. Explique o que faz o robô mudar do estado NAVEGANDO para DESVIANDO_OBSTACULO e depois voltar.", { type: "text", placeholder: "Explique o FSM e as transições entre estados..." }, null]
+  ]
+];
+
 const D = {
   eng: {
     title: "🇬🇧 ENGLISH — LONDON ADVENTURE",
     map: A.LONDON,
     char: A.BLUE,
     st: [
-      ["BÁSICO", [25, 68], [["What is the translation of “house”?", ["Home", "Car", "School"], 0], ["Complete: “Good ___!”", ["night", "morning", "school"], 1], ["Which word means “book”?", ["Book", "Table", "Door"], 0]]],
-      ["INTERMEDIÁRIO", [53, 46], [["Choose the correct sentence.", ["She are happy.", "She is happy.", "She am happy."], 1], ["What is the past tense of “go”?", ["Goed", "Gone", "Went"], 2], ["“I have been studying” is in which tense?", ["Present Perfect Continuous", "Simple Past", "Future"], 0]]],
-      ["AVANÇADO", [78, 29], [["What does “although” mean?", ["Because", "Although", "Therefore"], 1], ["Complete: “If I ___ more time, I would travel.”", ["have", "had", "will have"], 1], ["Which option sounds more natural?", ["I look forward to meeting you.", "I look forward meet you.", "I look forward to meet you."], 0]]]
+      ["BÁSICO", [25, 68], ENGLISH_QUESTIONS[0]],
+      ["INTERMEDIÁRIO", [53, 46], ENGLISH_QUESTIONS[1]],
+      ["AVANÇADO", [78, 29], ENGLISH_QUESTIONS[2]]
     ]
   },
   tech: {
@@ -21,77 +69,45 @@ const D = {
     map: A.CYBER,
     char: A.GREEN,
     st: [
-      ["BÁSICO", [24, 67], [["Qual destes é um componente de um robô?", ["Sensor", "Caderno", "Borracha"], 0], ["“avance 2” significa...", ["Avançar dois passos", "Girar 2 vezes", "Desligar"], 0], ["O que é uma instrução?", ["Uma ação que o robô executa", "Uma cor", "Um desenho"], 0]]],
-      ["INTERMEDIÁRIO", [43, 50], [["Qual comando pode repetir uma ação?", ["loop", "color", "printscreen"], 0], ["Qual linguagem é usada em projetos educacionais?", ["Scratch", "Photoshop", "PowerPoint"], 0], ["O que uma variável pode guardar?", ["Um valor", "Somente uma imagem", "Somente um cabo"], 0]]],
-      ["AVANÇADO", [70, 35], [["O que um sensor de movimento detecta?", ["Movimento", "Música", "Cor de texto"], 0], ["Para que serve um motor?", ["Produzir movimento", "Guardar senhas", "Mostrar vídeo"], 0], ["Um robô segue uma linha usando sensor para...", ["Perceber a linha e corrigir o caminho", "Aumentar volume", "Trocar idioma"], 0]]]
+      ["BÁSICO", [24, 67], TECH_QUESTIONS[0]],
+      ["INTERMEDIÁRIO", [43, 50], TECH_QUESTIONS[1]],
+      ["AVANÇADO", [70, 35], TECH_QUESTIONS[2]]
     ]
   }
 };
 
 const AGE_LEVELS = {
   "5 a 7 anos (Little Kids)": {
-    stageNames: { eng: ["BÁSICO", "BÁSICO", "BÁSICO"], tech: ["BÁSICO", "BÁSICO", "BÁSICO"] },
+    stageNames: { eng: ["BÁSICO", "BÁSICO", "BÁSICO"], tech: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"] },
     questions: {
-      eng: [
-        [["What color is the sun?", ["Yellow", "Blue", "Green"], 0], ["Complete: “I ___ a dog.”", ["am", "have", "is"], 1], ["Which one is a number?", ["Three", "Chair", "Cup"], 0]],
-        [["Choose the correct sentence.", ["He are happy.", "He is happy.", "He am happy."], 1], ["What is the opposite of “small”?", ["big", "slow", "cold"], 0], ["What is the past of “play”?", ["played", "playing", "play"], 0]],
-        [["Which word means “casa”?", ["House", "Tree", "Door"], 0], ["Complete: “I like ___.”", ["music", "book", "jump"], 0], ["Which sentence is correct?", ["She likes apples.", "She like apples.", "She apple likes."], 0]]
-      ],
-      tech: [
-        [["Qual é o nome de um robô?", ["Robot", "Papel", "Mesa"], 0], ["O que uma seta significa?", ["Andar", "Parar", "Dormir"], 0], ["Qual é um comando simples?", ["Vá para frente", "Cor", "Livro"], 0]],
-        [["Qual parte ajuda o robô a ver?", ["Sensor", "Caneta", "Boneca"], 0], ["O que é repetir?", ["Fazer a mesma coisa várias vezes", "Acabar o jogo", "Guardar roupa"], 0], ["Qual é a função de um botão?", ["Clicar para agir", "Escrever uma frase", "Pintar a parede"], 0]],
-        [["O que é uma etapa?", ["Uma parte de um passo", "Uma música", "Um carro"], 0], ["Qual ajuda o robô a andar?", ["Motor", "Pincel", "Caderno"], 0], ["O que um programa faz?", ["Ensina o robô a agir", "Desliga a luz", "Apaga o chão"], 0]]
-      ]
+      eng: ENGLISH_QUESTIONS,
+      tech: TECH_QUESTIONS
     }
   },
   "8 a 10 anos (Kids)": {
     stageNames: { eng: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"], tech: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"] },
     questions: {
-      eng: [
-        [["What is the translation of “school”?", ["Escola", "Casa", "Livro"], 0], ["Complete: “I ___ to school.”", ["go", "am", "is"], 0], ["Which word is a color?", ["Blue", "Table", "Chair"], 0]],
-        [["Choose the correct sentence.", ["They is playing.", "They are playing.", "They am playing."], 1], ["What is the past tense of “see”?", ["saw", "seen", "seeing"], 0], ["Which sentence is correct?", ["I have finished my homework.", "I has finished my homework.", "I finished my homework yesterday."], 0]],
-        [["What does “because” mean?", ["Por causa de", "Depois", "Mas"], 0], ["Complete: “If I had a bike, I ___ faster.”", ["would ride", "ride", "am ride"], 0], ["Which option is more natural?", ["I would like to learn more.", "I like learn more.", "I would like learning more."], 0]]
-      ],
-      tech: [
-        [["Qual peça mede distância?", ["Sensor", "Teclado", "Mouse"], 0], ["Uma instrução é...", ["Um passo do programa", "Uma música", "Uma imagem"], 0], ["Qual ação faz o robô andar?", ["Mover-se", "Dormir", "Parar"], 0]],
-        [["Qual estrutura repete ações?", ["loop", "input", "print"], 0], ["Qual linguagem é usada para robótica?", ["Scratch", "Word", "Excel"], 0], ["O que é uma variável?", ["Um espaço para guardar valor", "Um botão", "Um sensor"], 0]],
-        [["Para que serve um motor?", ["Mover partes do robô", "Guardar dados", "Ler arquivos"], 0], ["O que um sensor de movimento detecta?", ["Movimento", "Teclas", "Som"], 0], ["Um robô segue linha usando...", ["sensor de linha e correção", "teclado e mouse", "microfone e luz"], 0]]
-      ]
+      eng: ENGLISH_QUESTIONS,
+      tech: TECH_QUESTIONS
     }
   },
   "11 a 13 anos (Teens)": {
     stageNames: { eng: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"], tech: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"] },
     questions: {
-      eng: [
-        [["Select the correct meaning of “responsible”.", ["Responsável", "Rápido", "Fácil"], 0], ["Complete: “I ___ my homework yesterday.”", ["finished", "finish", "finishing"], 0], ["Which word is a verb?", ["run", "happy", "blue"], 0]],
-        [["Choose the correct sentence.", ["She has never seen that movie.", "She never has seen that movie.", "She have never seen that movie."], 0], ["What is the past participle of “write”?", ["written", "writed", "writing"], 0], ["Which option is in the present perfect continuous?", ["I have been studying.", "I studied.", "I will study."], 0]],
-        [["What does “although” mean?", ["Even though", "Because", "Finally"], 0], ["Complete: “If I ___ more time, I would travel.”", ["had", "have", "will have"], 0], ["Which is more natural?", ["I look forward to hearing from you.", "I look forward hearing from you.", "I look forward to hear from you."], 0]]
-      ],
-      tech: [
-        [["Qual componente capta entrada do ambiente?", ["Sensor", "Display", "Processador"], 0], ["Qual comando permite repetir?", ["loop", "start", "sound"], 0], ["O que é uma variável?", ["Um espaço de memória para guardar valor", "Um ícone", "Um botão"], 0]],
-        [["Qual linguagem é especialmente usada em escolas para introduzir programação?", ["Scratch", "HTML", "Excel"], 0], ["Para que serve um motor em robótica?", ["Gerar movimento", "Armazenar energia", "Exibir texto"], 0], ["Qual é a função de um algoritmo?", ["Organizar passos para resolver um problema", "Desligar o robô", "Guardar arquivos"], 0]],
-        [["O que um sensor de linha detecta?", ["A linha no chão", "A cor do monitor", "A energia do motor"], 0], ["Qual instrução define uma condição?", ["if", "loop", "reset"], 0], ["O que é depuração?", ["Encontrar e corrigir erros no programa", "Trocar o nome do robô", "Reiniciar tudo"], 0]]
-      ]
+      eng: ENGLISH_QUESTIONS,
+      tech: TECH_QUESTIONS
     }
   },
   "14+ anos (Youth & Adult)": {
     stageNames: { eng: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"], tech: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"] },
     questions: {
-      eng: [
-        [["Which phrase is correct?", ["I have lived here for two years.", "I lived here for two years ago.", "I have been living here since two years."], 0], ["Complete: “The project was completed ___ the deadline.”", ["before", "on", "during"], 0], ["Choose the best synonym for “effective”.", ["efficient", "expensive", "quiet"], 0]],
-        [["What is the function of the passive voice?", ["Emphasize the action instead of the agent.", "Shorten sentences.", "Avoid verbs."], 0], ["Complete: “If I had known, I ___ earlier.”", ["would have acted", "acted", "would act"], 0], ["Choose the most natural sentence.", ["I am looking forward to discussing the proposal.", "I am looking forward discussing the proposal.", "I am looking forward to discuss the proposal."], 0]],
-        [["Select the best sentence.", ["Although it was difficult, we continued.", "Because it was difficult, we continued.", "Despite it was difficult, we continued."], 0], ["What is the meaning of “detailed”?", ["Comprehensive and specific", "Short and vague", "Fast and easy"], 0], ["Which sentence uses the correct conditional structure?", ["If she studies, she will improve.", "If she studied, she will improve.", "If she studies, she would improve."], 0]]
-      ],
-      tech: [
-        [["Qual estrutura condiciona uma decisão?", ["if", "output", "array"], 0], ["O que é um sensor?", ["Dispositivo que lê dados do ambiente", "Botão visual", "Programa de som"], 0], ["Qual é a vantagem de modularizar um código?", ["Facilitar manutenção e leitura", "Diminuir a lógica", "Eliminar a depuração"], 0]],
-        [["O que é um algoritmo eficiente?", ["Uma sequência otimizada para resolver o problema", "Um código sem objetivo", "Uma função estática"], 0], ["Qual estrutura repete uma ação enquanto a condição for verdadeira?", ["while", "input", "object"], 0], ["Qual é o papel de uma variável?", ["Armazenar valores para utilização no programa", "Exibir mensagens fixas", "Desligar o sistema"], 0]],
-        [["O que é IA em robótica?", ["Sistema capaz de interpretar dados e tomar decisões", "Botão simples", "Fonte de energia"], 0], ["Como testar um robô de forma segura?", ["Simular cenários e validar sensores e lógica", "Executar sem revisão", "Pressionar todos os botões"], 0], ["Qual é o objetivo da depuração?", ["Localizar e corrigir erros lógicos", "Simplificar o hardware", "Trocar o código por outro"], 0]]
-      ]
+      eng: ENGLISH_QUESTIONS,
+      tech: TECH_QUESTIONS
     }
   }
 };
 
-let S = { name: "", age: "", m: "", stage: 0, q: 0, score: 0, answered: false }, $ = id => document.getElementById(id);
+let S = { name: "", age: "", m: "", stage: 0, q: 0, score: 0, answered: false, responses: [] }, $ = id => document.getElementById(id);
 
 function currentGameData() {
   const base = JSON.parse(JSON.stringify(D[S.m] || D.eng));
@@ -126,6 +142,7 @@ function start() {
 
   S.name = n;
   S.age = a;
+  S.responses = [];
   if ($("hello")) $("hello").textContent = n;
   hud();
   show("choose");
@@ -135,6 +152,7 @@ function backHome() {
   S.stage = 0;
   S.q = 0;
   S.score = 0;
+  S.responses = [];
   show("home");
   hud();
 }
@@ -144,6 +162,7 @@ function openM(m) {
   S.stage = 0;
   S.q = 0;
   S.score = 0;
+  S.responses = [];
 
   let d = currentGameData();
   $("mt").textContent = d.title;
@@ -214,16 +233,73 @@ function quiz() {
   qrender();
 }
 
+function shuffleAnswers(options) {
+  let arr = options.map((text, index) => ({ text, index }));
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 function qrender() {
   S.answered = false;
   let d = currentGameData();
   let s = d.st[S.stage];
   let q = s[2][S.q];
+  let totalQuestions = s[2].length;
+  let isTextQuestion = q && q[1] && typeof q[1] === "object" && q[1].type === "text";
 
   $("qt").textContent = s[0];
-  $("qc").textContent = "QUESTION " + (S.q + 1) + "/3";
-  $("bar").style.width = (S.q / 3 * 100) + "%";
-  $("body").innerHTML = '<div class="question">' + q[0] + '</div><div class="answers">' + q[1].map((x, i) => '<button class="answer" onclick="answer(' + i + ')">' + String.fromCharCode(65 + i) + ') ' + x + '</button>').join("") + '</div><div id="fb" class="feedback"></div><button id="next" class="btn red full hidden" onclick="next()">CONTINUE ▶</button>';
+  $("qc").textContent = "QUESTION " + (S.q + 1) + "/" + totalQuestions;
+  $("bar").style.width = (S.q / totalQuestions * 100) + "%";
+
+  if (isTextQuestion) {
+    $("body").innerHTML = '<div class="question">' + q[0] + '</div><div class="answers"><textarea id="writtenAnswer" rows="5" placeholder="' + (q[1].placeholder || "Escreva sua resposta aqui...") + '" style="width:100%;border-radius:0.9rem;border:2px solid rgba(125,211,252,0.7);padding:0.9rem 1rem;background:rgba(7,15,31,0.9);color:white;resize:vertical;"></textarea></div><div id="fb" class="feedback"></div><button class="btn red full" onclick="answerText()">RESPONDER</button><button id="next" class="btn red full hidden" onclick="next()">CONTINUE ▶</button>';
+    return;
+  }
+
+  S.options = shuffleAnswers(q[1]);
+  $("body").innerHTML = '<div class="question">' + q[0] + '</div><div class="answers">' + S.options.map((option, i) => '<button class="answer" onclick="answer(' + i + ')">' + String.fromCharCode(65 + i) + ') ' + option.text + '</button>').join("") + '</div><div id="fb" class="feedback"></div><button id="next" class="btn red full hidden" onclick="next()">CONTINUE ▶</button>';
+}
+
+function saveAnswer(response) {
+  const d = currentGameData();
+  const q = d.st[S.stage][2][S.q];
+  S.responses.push({
+    stage: d.st[S.stage][0],
+    questionNumber: S.q + 1,
+    question: q[0],
+    answer: response.answer,
+    correction: response.correction,
+    isCorrect: response.isCorrect,
+    isWritten: !!response.isWritten
+  });
+}
+
+function answerText() {
+  if (S.answered) return;
+
+  const input = $("writtenAnswer");
+  if (!input || !input.value.trim()) {
+    $("fb").textContent = "✍️ Escreva sua resposta antes de continuar.";
+    return;
+  }
+
+  const answerTextValue = input.value.trim();
+  S.answered = true;
+  S.score += 3;
+  saveAnswer({
+    answer: answerTextValue,
+    correction: "Resposta registrada para revisão pelo professor. Verifique gramática, clareza, vocabulário e estrutura da frase.",
+    isCorrect: true,
+    isWritten: true
+  });
+  $("fb").textContent = "✨ Resposta registrada!";
+  const submitBtn = document.querySelector("button[onclick='answerText()']");
+  if (submitBtn) submitBtn.classList.add("hidden");
+  $("next").classList.remove("hidden");
+  hud();
 }
 
 function answer(i) {
@@ -232,13 +308,28 @@ function answer(i) {
 
   let q = currentGameData().st[S.stage][2][S.q];
   let b = [...document.querySelectorAll(".answer")];
-  b[q[2]].classList.add("correct");
+  let correctIndex = S.options.findIndex(option => option.index === q[2]);
+  const selectedText = S.options[i].text;
+  const correctText = S.options[correctIndex].text;
+  b[correctIndex].classList.add("correct");
 
-  if (i === q[2]) {
-    S.score++;
+  if (i === correctIndex) {
+    S.score += 3;
+    saveAnswer({
+      answer: selectedText,
+      correction: "Resposta correta: " + correctText,
+      isCorrect: true,
+      isWritten: false
+    });
     $("fb").textContent = "✨ Great job! You got it right!";
   } else {
     b[i].classList.add("wrong");
+    saveAnswer({
+      answer: selectedText,
+      correction: "Resposta correta: " + correctText,
+      isCorrect: false,
+      isWritten: false
+    });
     $("fb").textContent = "💡 The correct answer is highlighted.";
   }
 
@@ -247,14 +338,15 @@ function answer(i) {
 }
 
 function next() {
-  let totalStages = currentGameData().st.length;
+  let totalQuestions = currentGameData().st[S.stage][2].length;
 
-  if (S.q < 2) {
+  if (S.q < totalQuestions - 1) {
     S.q++;
     qrender();
     return;
   }
 
+  let totalStages = currentGameData().st.length;
   if (S.stage < totalStages - 1) {
     S.stage++;
     render();
@@ -266,10 +358,16 @@ function next() {
 }
 
 function finish() {
-  let total = currentGameData().st.length * 3;
+  let totalQuestions = currentGameData().st.reduce((sum, stage) => sum + stage[2].length, 0);
+  let total = totalQuestions * 3;
   let p = S.score / total;
   let n = p >= 0.9 ? 3 : p >= 0.6 ? 2 : 1;
   let pct = Math.round((S.score / total) * 100);
+  const isEnglish = S.m === "eng";
+  const teacherName = isEnglish ? "Professor de Inglês" : "Professor Crispim";
+  const teacherAction = isEnglish
+    ? "vai confirmar o nível de inglês do aluno no teste presencial."
+    : "vai analisar o conhecimento do aluno em aula.";
 
   const levelMap = {
     basic: { label: "BÁSICO", desc: "Domina os primeiros passos e precisa reforçar conceitos fundamentais." },
@@ -279,9 +377,10 @@ function finish() {
 
   let levelKey = pct >= 75 ? "advanced" : pct >= 45 ? "intermediate" : "basic";
   let levelData = levelMap[levelKey];
-
   let englishLevel = pct >= 75 ? "AVANÇADO" : pct >= 45 ? "INTERMEDIÁRIO" : "BÁSICO";
-  let teacherStatus = pct >= 60 ? "Aprovado com orientação do Professor Crispim." : "Aprovado pelo Professor Crispim após revisão e reforço.";
+  let teacherStatus = pct >= 60
+    ? "Aprovado com orientação do " + teacherName + "."
+    : "Aprovado pelo " + teacherName + " após revisão e reforço.";
 
   const englishTips = {
     basic: "Dica de Inglês: revisite vocabulário, frases simples e verbos básicos. Foque em subject + verb + complement e pratique respostas curtas com confiança.",
@@ -295,12 +394,32 @@ function finish() {
     advanced: "Dica de Programação: foque em depuração, lógica e criação de soluções mais completas. Você está avançando bem; agora é tempo de testar, ajustar e otimizar."
   };
 
+  const moduleResult = isEnglish
+    ? "<div><strong>Professor:</strong> " + teacherName + " — " + teacherAction + "</div>"
+    : "<div><strong>Professor:</strong> " + teacherName + " — " + teacherAction + "</div>";
+
+const answerReview = S.responses.length
+    ? "<div style='margin-top: 1rem; text-align: left;'><strong>Respostas do aluno e correção:</strong><br>" +
+    S.responses.map((entry, idx) => {
+      const shortAnswer = String(entry.answer || "Sem resposta").replace(/\s+/g, " ").trim();
+      const answerText = shortAnswer.length > 150 ? shortAnswer.slice(0, 150) + "..." : shortAnswer;
+      const correctionText = entry.correction || "Revisar com o professor.";
+      return "<div style='margin: 0.8rem 0; padding: 0.7rem 0.8rem; background: rgba(15, 23, 42, 0.45); border: 1px solid rgba(125,211,252,0.25); border-radius: 0.75rem;'><strong>Q" + (idx + 1) + ":</strong> " + (entry.isWritten ? "Resposta escrita" : "Alternativa") + "<br><strong>Aluno:</strong> " + answerText + "<br><strong>Correção:</strong> " + correctionText + "</div>";
+    }).join("") + "</div>"
+    : "";
+
   $("rt").innerHTML = S.name + ", você terminou com <b>" + S.score + "/" + total + "</b> acertos!";
-  $("resultLevel").innerHTML = "<strong>Nível do aluno:</strong> " + levelData.label + "<br><strong>Nível recomendado de inglês:</strong> " + englishLevel + "<br><strong>Observação:</strong> " + levelData.desc;
-  $("resultTeacher").innerHTML = "<strong>Aprovação do Professor Crispim:</strong> " + teacherStatus;
-  $("resultTips").innerHTML = "<div><strong>Dicas para inglês:</strong> " + englishTips[levelKey] + "</div>" +
-    "<div><strong>Dicas para programação e robótica:</strong> " + techTips[levelKey] + "</div>" +
-    "<div><strong>Explicação dos erros:</strong> os erros apareceram principalmente quando a lógica ou a estrutura da frase não foi aplicada corretamente. Revise os conceitos, pratique em pequenas etapas e tente explicar cada resposta antes de avançar.</div>";
+  $("resultLevel").innerHTML = isEnglish
+    ? "<strong>Nível do aluno:</strong> " + levelData.label + "<br><strong>Nível recomendado de inglês:</strong> " + englishLevel + "<br><strong>Observação:</strong> " + levelData.desc
+    : "<strong>Nível do aluno:</strong> " + levelData.label + "<br><strong>Observação:</strong> " + levelData.desc;
+  $("resultTeacher").innerHTML = "<strong>Aprovação do " + teacherName + ":</strong> " + teacherStatus;
+  $("resultTips").innerHTML = isEnglish
+    ? "<div><strong>Dicas para inglês:</strong> " + englishTips[levelKey] + "</div>" +
+    "<div><strong>Explicação dos erros:</strong> os erros apareceram principalmente quando a estrutura da frase ou o vocabulário não foi aplicado corretamente. Revise os conceitos, pratique em pequenas etapas e tente explicar cada resposta antes de avançar.</div>" +
+    moduleResult + answerReview
+    : "<div><strong>Dicas para programação e robótica:</strong> " + techTips[levelKey] + "</div>" +
+    "<div><strong>Explicação dos erros:</strong> os erros apareceram principalmente quando a lógica ou a sequência de passos não foi aplicada corretamente. Revise os conceitos, pratique em pequenas etapas e tente explicar cada resposta antes de avançar.</div>" +
+    moduleResult;
   $("stars").textContent = "★".repeat(n) + "☆".repeat(3 - n);
   show("result");
 }
