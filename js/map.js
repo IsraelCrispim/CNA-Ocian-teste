@@ -8,8 +8,14 @@ function openM(m) {
   if (typeof S.totalScore !== "number") S.totalScore = 0;
 
   let d = currentGameData();
+  const mapImage = $("mapimg");
   $("mt").textContent = d.title;
-  $("mapimg").src = d.map;
+  mapImage.src = d.map;
+  mapImage.style.width = "100%";
+  mapImage.style.height = "auto";
+  mapImage.style.aspectRatio = "16 / 10";
+  mapImage.style.objectFit = "cover";
+  mapImage.style.objectPosition = "center";
   $("player").src = d.char;
   render();
   hud();

@@ -6,12 +6,12 @@
 }
 
 .quizcard {
-  width: min(980px, 100%);
-  min-height: 520px;
+  width: min(820px, 100%);
+  min-height: 440px;
   background: rgba(6, 26, 69, 0.96);
   border: 2px solid #239dff;
-  border-radius: 26px;
-  padding: 32px 28px 26px;
+  border-radius: 22px;
+  padding: 22px 20px 20px;
   box-shadow: none;
   display: flex;
   flex-direction: column;
@@ -23,15 +23,15 @@
   justify-content: space-between;
   font-weight: 1000;
   font-family: 'Press Start 2P', 'Courier New', monospace;
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 1px;
 }
 
 .bar {
-  height: 11px;
+  height: 10px;
   background: #020b20;
   border-radius: 20px;
-  margin: 14px 0 23px;
+  margin: 12px 0 18px;
   overflow: hidden;
 }
 
@@ -43,22 +43,22 @@
 }
 
 .question {
-  font-size: clamp(20px, 2vw, 30px);
+  font-size: clamp(16px, 1.7vw, 22px);
   font-weight: 900;
-  margin: 18px 0 22px;
-  line-height: 1.7;
+  margin: 14px 0 18px;
+  line-height: 1.5;
   font-family: 'Press Start 2P', 'Courier New', monospace;
-  letter-spacing: 1px;
+  letter-spacing: 0.7px;
   text-shadow: 2px 2px 0 rgba(0, 0, 0, .35);
 }
 
 .answers {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .answer {
-  padding: 16px 18px;
+  padding: 13px 14px;
   text-align: left;
   border: 2px solid #238ce0;
   border-radius: 12px;
@@ -68,8 +68,8 @@
   pointer-events: auto;
   cursor: pointer;
   font-family: 'Press Start 2P', 'Courier New', monospace;
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: 11px;
+  line-height: 1.45;
 }
 
 .correct {
