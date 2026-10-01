@@ -98,7 +98,14 @@ const AGE_LEVELS = {
       tech: TECH_QUESTIONS
     }
   },
-  "14+ anos (Youth & Adult)": {
+  "14 - 16 anos (Young)": {
+    stageNames: { eng: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"], tech: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"] },
+    questions: {
+      eng: ENGLISH_QUESTIONS,
+      tech: TECH_QUESTIONS
+    }
+  },
+  "18+ anos (Adult)": {
     stageNames: { eng: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"], tech: ["BÁSICO", "INTERMEDIÁRIO", "AVANÇADO"] },
     questions: {
       eng: ENGLISH_QUESTIONS,

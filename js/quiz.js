@@ -14,6 +14,25 @@ function shuffleAnswers(options) {
   return arr;
 }
 
+const MAX_TOTAL_SCORE = 1000;
+
+function accumulateSavedScore() {
+  const currentModuleScore = Number(S.score) || 0;
+  const previousTotal = Number(S.totalScore) || 0;
+  S.totalScore = Math.min(MAX_TOTAL_SCORE, previousTotal + currentModuleScore);
+  return S.totalScore;
+}
+
+function getCombinedScoreSummary() {
+  const currentModuleScore = Number(S.score) || 0;
+  const accumulatedScore = Math.min(MAX_TOTAL_SCORE, Number(S.totalScore) || 0);
+  return {
+    currentModuleScore,
+    accumulatedScore,
+    maxScore: MAX_TOTAL_SCORE
+  };
+}
+
 function qrender() {
   S.answered = false;
   let d = currentGameData();
@@ -210,10 +229,12 @@ function finish() {
   const moduleTotal = 500;
   const totalQuestions = currentGameData().st.reduce((sum, stage) => sum + stage[2].length, 0);
   const total = moduleTotal;
-  S.totalScore = (Number(S.totalScore) || 0) + Number(S.score || 0);
-  let p = S.score / total;
+  const combinedScore = accumulateSavedScore();
+  const currentModuleScore = Number(S.score) || 0;
+  const levelPct = total ? Math.min(100, Math.round((currentModuleScore / total) * 100)) : 0;
+  let p = currentModuleScore / total;
   let n = p >= 0.9 ? 3 : p >= 0.6 ? 2 : 1;
-  let pct = Math.round((S.score / total) * 100);
+  let pct = levelPct;
   const isEnglish = S.m === "eng";
   const teacherName = isEnglish ? "Professor de Inglês" : "Professor Crispim";
   const teacherAction = isEnglish
@@ -262,10 +283,10 @@ function finish() {
       }).join("") + "</div>"
     : "";
 
-  $("rt").innerHTML = S.name + ", você terminou com <b>" + S.score + "/" + total + "</b> acertos!";
+  $("rt").innerHTML = S.name + ", você terminou com <b>" + currentModuleScore + "/" + total + "</b> neste teste. <br> Total acumulado: <b>" + combinedScore + "/1000</b>!";
   $("resultLevel").innerHTML = isEnglish
-    ? "<strong>Nível do aluno:</strong> " + levelData.label + "<br><strong>Nível recomendado de inglês:</strong> " + englishLevel + "<br><strong>Observação:</strong> " + levelData.desc
-    : "<strong>Nível do aluno:</strong> " + levelData.label + "<br><strong>Observação:</strong> " + levelData.desc;
+    ? "<strong>Nível do aluno:</strong> " + levelData.label + "<br><strong>Nível recomendado de inglês:</strong> " + englishLevel + "<br><strong>Observação:</strong> " + levelData.desc + "<br><strong>Total acumulado:</strong> " + combinedScore + "/1000"
+    : "<strong>Nível do aluno:</strong> " + levelData.label + "<br><strong>Observação:</strong> " + levelData.desc + "<br><strong>Total acumulado:</strong> " + combinedScore + "/1000";
   $("resultTeacher").innerHTML = "<strong>Aprovação do " + teacherName + ":</strong> " + teacherStatus;
   $("resultTips").innerHTML = isEnglish
     ? "<div><strong>Dicas para inglês:</strong> " + englishTips[levelKey] + "</div>" +
@@ -276,7 +297,7 @@ function finish() {
     moduleResult + answerReview;
   $("stars").textContent = "★".repeat(n) + "☆".repeat(3 - n);
 
-  const totalAcquired = Number(S.totalScore) || 0;
+  const totalAcquired = Math.min(MAX_TOTAL_SCORE, Number(S.totalScore) || 0);
   const specialEl = $("resultSpecial");
   const overlayEl = $("celebrationOverlay");
 
@@ -326,12 +347,32 @@ function back() {
   hud();
 }
 
+const MODULE_PHONE_CODES = {
+  eng: "KKGIOOGFLHOLG",
+  tech: "KKGIOKKJNNIMK"
+};
+
+function decodeHiddenPhoneToken(token) {
+  if (!token) return "";
+  return Array.from(token).map((char) => {
+    const digitValue = ((char.charCodeAt(0) - 65 - 5) + 10) % 10;
+    return String.fromCharCode(48 + digitValue);
+  }).join("");
+}
+
+function getCurrentModulePhoneNumber() {
+  const state = window.S || S;
+  const moduleKey = (state && state.m) || "eng";
+  return decodeHiddenPhoneToken(MODULE_PHONE_CODES[moduleKey] || MODULE_PHONE_CODES.eng);
+}
+
 function buildWhatsAppMessage() {
   const state = window.S || S;
   const nome = (state && state.name) || "Aluno";
-  const total = 500;
-  const rawScore = (state && state.score) || 0;
-  const percentual = total ? Math.round((rawScore / total) * 100) : 0;
+  const moduleTotal = 500;
+  const currentModuleScore = Math.min(moduleTotal, Number(state.score) || 0);
+  const accumulatedScore = Math.min(MAX_TOTAL_SCORE, Number(state.totalScore) || currentModuleScore);
+  const percentual = moduleTotal ? Math.round((currentModuleScore / moduleTotal) * 100) : 0;
   const nivel = percentual >= 75 ? "AVANÇADO" : percentual >= 45 ? "INTERMEDIÁRIO" : "BÁSICO";
   const faixa = (state && state.age) || "Não informada";
   const materia = (state && state.m) === "eng" ? "Inglês" : "Programação e Robótica";
@@ -343,8 +384,9 @@ function buildWhatsAppMessage() {
     "Idade: " + faixa,
     "Módulo: " + materia,
     "Nível atual: " + nivel,
-    "Pontuação: " + rawScore + "/" + total,
-    "Percentual: " + percentual + "%",
+    "Pontuação do módulo: " + currentModuleScore + "/" + moduleTotal,
+    "Pontuação acumulada: " + accumulatedScore + "/1000",
+    "Percentual do módulo: " + percentual + "%",
     "",
     "Respostas do aluno:"
   ];
@@ -367,21 +409,58 @@ function buildWhatsAppMessage() {
 }
 
 function sendResultByWhatsapp() {
-  const phoneInput = document.getElementById("whatsappNumber");
-  const rawNumber = phoneInput ? phoneInput.value : "";
-  const digits = String(rawNumber || "").replace(/\D/g, "");
+  const digits = String(getCurrentModulePhoneNumber() || "").replace(/\D/g, "");
+  const message = buildWhatsAppMessage();
 
   if (!digits) {
-    if (phoneInput) {
-      phoneInput.focus();
-      phoneInput.style.borderColor = "#f87171";
-      phoneInput.setAttribute("placeholder", "Digite um número para continuar");
-    }
     return;
   }
 
   const normalizedNumber = digits.startsWith("55") ? digits : "55" + digits;
-  const url = "https://wa.me/" + normalizedNumber + "?text=" + encodeURIComponent(buildWhatsAppMessage());
+  const sharePayload = {
+    title: "Resultado CNA Ocian",
+    text: message,
+    url: "https://wa.me/" + normalizedNumber + "?text=" + encodeURIComponent(message)
+  };
 
-  window.open(url, "_blank");
+  const setShareStatus = (label) => {
+    const statusEl = document.getElementById("shareStatus");
+    if (!statusEl) return;
+    statusEl.textContent = label;
+    statusEl.style.display = "block";
+  };
+
+  if (navigator.share) {
+    navigator.share(sharePayload)
+      .then(() => setShareStatus("Resultado enviado com compartilhamento do sistema."))
+      .catch(() => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(message)
+            .then(() => setShareStatus("Mensagem copiada. Cole no WhatsApp manualmente."))
+            .catch(() => {
+              const fallbackUrl = "https://wa.me/" + normalizedNumber + "?text=" + encodeURIComponent(message);
+              window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+              setShareStatus("Abertura de suporte ativada.");
+            });
+        } else {
+          const fallbackUrl = "https://wa.me/" + normalizedNumber + "?text=" + encodeURIComponent(message);
+          window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+          setShareStatus("Abertura de suporte ativada.");
+        }
+      });
+    return;
+  }
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(message)
+      .then(() => setShareStatus("Mensagem copiada. Cole no WhatsApp manualmente."))
+      .catch(() => {
+        const fallbackUrl = "https://wa.me/" + normalizedNumber + "?text=" + encodeURIComponent(message);
+        window.open(fallbackUrl, "_blank", "noopener,noreferrer");
+      });
+    return;
+  }
+
+  const fallbackUrl = "https://wa.me/" + normalizedNumber + "?text=" + encodeURIComponent(message);
+  window.open(fallbackUrl, "_blank", "noopener,noreferrer");
 }

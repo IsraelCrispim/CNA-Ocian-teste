@@ -1,0 +1,60 @@
+body.protected {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body.protected input,
+body.protected textarea,
+body.protected [contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.security-warning-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(2, 8, 20, 0.82);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.security-warning-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.security-warning-box {
+  width: min(90vw, 480px);
+  background: linear-gradient(135deg, rgba(12, 22, 35, 0.96), rgba(18, 35, 58, 0.96));
+  border: 2px solid rgba(248, 113, 113, 0.9);
+  border-radius: 1.25rem;
+  padding: 1.5rem 1.2rem;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(248, 113, 113, 0.35);
+  color: #f8fbff;
+}
+
+.security-warning-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.security-warning-box h2 {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  color: #ffb4b4;
+  letter-spacing: 0.08em;
+}
+
+.security-warning-box p {
+  margin: 0.4rem 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #dfeeff;
+}

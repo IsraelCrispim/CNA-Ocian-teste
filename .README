@@ -1,0 +1,82 @@
+# CNA Ocian — Missão
+
+Aplicativo web educativo e gamificado desenvolvido para funcionar como um quiz interativo de inglês e programação/robótica, com fluxo por fases, mapas, seleção de idade, pontuação, revisão final e envio de resultado por WhatsApp.
+
+## Visão geral
+O projeto simula uma experiência de aprendizagem em formato de jogo, combinando:
+- tela inicial de cadastro do aluno;
+- escolha de módulo (Inglês ou Programação/Robótica);
+- mapa de progresso com etapas desbloqueáveis;
+- quiz por fase com múltiplas perguntas;
+- sistema de pontuação e ranking por módulo;
+- tela final com revisão de respostas e envio de resultados;
+- suporte mobile com orientação de tela e ajustes responsivos;
+- camuflagem de arquivos e proteção de inspeção do front-end.
+
+## Objetivo
+A proposta do projeto é transformar uma experiência de avaliação em uma jornada mais dinâmica e motivadora, com aparência lúdica, incentivo à progressão e feedback visual em cada etapa.
+
+## Funcionalidades principais
+- Cadastro com nome e faixa etária;
+- Seleção de módulo de desafio;
+- Mapa de fases com personagens e progresso;
+- Lógica de pontuação por módulo e total;
+- Mensagens de incentivo e mascotes por etapa;
+- Pop-ups de conclusão e celebração;
+- Integração de compartilhamento para WhatsApp;
+- Layout responsivo para desktop e mobile;
+- Proteção contra inspeção e carregamento direto de assets.
+
+## Estrutura do projeto
+
+### Arquivo principal
+- index.html — shell principal da aplicação e carregamento dinâmico dos assets.
+
+### Estilos
+- css/partials/base.css — base visual geral.
+- css/partials/home.css — estilos da home.
+- css/partials/choose.css — estilos da tela de escolha do jogo.
+- css/partials/home-mobile.css — ajustes mobile.
+- css/partials/map.css — estilos do mapa e fases.
+- css/partials/quiz.css — estilos do quiz e pop-ups.
+- css/partials/security.css — overlay e bloqueios de segurança.
+
+### JavaScript
+- js/data.js — banco de perguntas, mapas e configurações.
+- js/state.js — estado global da aplicação.
+- js/home.js — fluxo da home, início e reset.
+- js/map.js — renderização dos mapas e avanço entre fases.
+- js/quiz.js — lógica do quiz, respostas, pontuação e resultado final.
+- js/security.js — proteção da sessão e bloqueios de inspeção/saída.
+- js/mobile.js — ajustes de responsividade e orientação do aparelho.
+
+### Imagens e ativos
+- img/logo.png — logo institucional.
+- img/personagens/ingles.png — mascote do módulo de inglês.
+- img/personagens/robotica.png — mascote do módulo de programação.
+- img/personagens/... — demais personagens e personagens de apoio.
+- img/mapas/... — mapas e cenários das fases.
+
+## Fluxo de uso
+1. A página inicial solicita nome e faixa etária.
+2. O usuário escolhe entre Inglês ou Programação/Robótica.
+3. O mapa apresenta as etapas disponíveis.
+4. O jogador responde as perguntas em sequência.
+5. A pontuação é acumulada por módulo.
+6. Ao concluir, o sistema exibe o resultado final e oferece envio via WhatsApp.
+
+## Dados e lógica
+A aplicação armazena:
+- perguntas por módulo;
+- configurações por faixa etária;
+- progresso e resposta do aluno;
+- pontuação total e por etapa;
+- mensagens de feedback e mascotes de comemoração.
+
+## Execução
+Abra o arquivo index.html em um navegador moderno.
+
+Para melhor experiência, recomenda-se utilizar em desktop ou em mobile em orientação horizontal.
+
+## Observação de segurança
+O projeto inclui camuflagem e carregamento dinâmico de recursos para reduzir a visibilidade direta de arquivos e scripts no ambiente de desenvolvimento, mantendo o comportamento do jogo intacto.
