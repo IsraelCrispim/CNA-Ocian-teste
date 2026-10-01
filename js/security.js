@@ -1,15 +1,10 @@
 (function () {
-  const securityState = {
-    resetTimer: null,
-    ready: false
-  };
+  let warningShown = false;
 
-  function isQuizActive() {
-    const quizEl = document.getElementById("quizS");
-    return !!(quizEl && !quizEl.classList.contains("hidden"));
-  }
+  function showWarning() {
+    if (warningShown) return;
+    warningShown = true;
 
-  function showSecurityPopup() {
     let overlay = document.getElementById("securityWarning");
     if (!overlay) {
       overlay = document.createElement("div");
@@ -18,99 +13,56 @@
       overlay.innerHTML = '<div class="security-warning-box">' +
         '<div class="security-warning-icon">⚠️</div>' +
         '<h2>ATENÇÃO</h2>' +
-        '<p>Não é permitido sair da página durante as perguntas.</p>' +
-        '<p>O jogo será reiniciado automaticamente.</p>' +
+        '<p>Saída da página detectada.</p>' +
+        '<p>Reiniciando o jogo...</p>' +
         '</div>';
       document.body.appendChild(overlay);
     }
 
-    requestAnimationFrame(() => overlay.classList.add("show"));
+    setTimeout(function () {
+      window.location.reload();
+    }, 1300);
   }
 
-  function resetQuizSecurity() {
-    if (securityState.resetTimer) return;
-
-    if (typeof window.backHome === "function") {
-      showSecurityPopup();
-      securityState.resetTimer = setTimeout(() => {
-        window.backHome();
-        const overlay = document.getElementById("securityWarning");
-        if (overlay) overlay.remove();
-        securityState.resetTimer = null;
-      }, 1800);
+  function blockAttempt(event) {
+    if (event && typeof event.preventDefault === "function") {
+      event.preventDefault();
     }
+    if (event && typeof event.stopPropagation === "function") {
+      event.stopPropagation();
+    }
+    showWarning();
+    return false;
   }
 
-  function handleLeaveAttempt() {
-    if (isQuizActive()) {
-      resetQuizSecurity();
+  document.addEventListener("contextmenu", function (event) {
+    blockAttempt(event);
+  }, true);
+
+  document.addEventListener("keydown", function (event) {
+    const key = event.key || "";
+    const ctrl = event.ctrlKey || event.metaKey;
+    const blockedKeys = ["F12", "PrintScreen", "Snapshot", "Escape", "Tab"];
+    const shortcutKeys = ["p", "s", "c", "x", "v", "u", "i", "j"];
+
+    if (blockedKeys.includes(key) || (ctrl && shortcutKeys.includes(key.toLowerCase()))) {
+      blockAttempt(event);
     }
-  }
+  }, true);
+
+  window.addEventListener("beforeunload", function (event) {
+    event.preventDefault();
+    event.returnValue = "";
+    showWarning();
+  });
 
   document.addEventListener("visibilitychange", function () {
-    if (document.hidden && isQuizActive()) {
-      handleLeaveAttempt();
+    if (document.hidden) {
+      showWarning();
     }
   });
 
   window.addEventListener("blur", function () {
-    if (isQuizActive()) {
-      handleLeaveAttempt();
-    }
+    showWarning();
   });
-
-  window.addEventListener("beforeunload", function (event) {
-    if (isQuizActive()) {
-      event.preventDefault();
-      event.returnValue = "";
-    }
-  });
-
-  document.addEventListener("keydown", function (event) {
-    if (!isQuizActive()) return;
-
-    const target = event.target;
-    const isEditable = target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable || target.closest("input, textarea, [contenteditable='true']"));
-    if (isEditable) return;
-
-    const isModifier = event.ctrlKey || event.metaKey || event.altKey;
-    const blockedKey = [
-      "F12",
-      "PrintScreen",
-      "Insert",
-      "Home",
-      "End",
-      "PageUp",
-      "PageDown"
-    ];
-    const blockedShortcuts = ["c", "v", "x", "u", "s", "p", "a", "i", "j", "d"];
-
-    if (blockedKey.includes(event.key) || (isModifier && blockedShortcuts.includes(event.key.toLowerCase()))) {
-      event.preventDefault();
-      event.stopPropagation();
-      handleLeaveAttempt();
-      return false;
-    }
-
-    if (event.shiftKey && isModifier && ["i", "c", "j"].includes(event.key.toLowerCase())) {
-      event.preventDefault();
-      event.stopPropagation();
-      handleLeaveAttempt();
-      return false;
-    }
-  });
-
-  document.addEventListener("DOMContentLoaded", function () {
-    document.body.classList.add("protected");
-    securityState.ready = true;
-  });
-
-  setInterval(function () {
-    if (!isQuizActive()) return;
-    const widthDiff = window.outerWidth - window.innerWidth;
-    const heightDiff = window.outerHeight - window.innerHeight;
-    if (widthDiff > 170 || heightDiff > 170) {
-      handleLeaveAttempt();
-    }
-  }, 800);
 })();

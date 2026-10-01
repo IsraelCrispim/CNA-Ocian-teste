@@ -212,7 +212,7 @@
         for (const file of cssFiles) {
           const cssText = await loadText(file);
           const style = document.createElement("style");
-          style.setAttribute("data-camouflage", "css");
+          style.setAttribute("data-asset", "css");
           style.textContent = cssText;
           document.head.appendChild(style);
         }
@@ -223,7 +223,7 @@
           const code = await loadText(file);
           const blobUrl = URL.createObjectURL(new Blob([code], { type: "application/javascript" }));
           const script = document.createElement("script");
-          script.setAttribute("data-camouflage", "js");
+          script.setAttribute("data-asset", "js");
           script.src = blobUrl;
           script.async = false;
           document.body.appendChild(script);
@@ -239,7 +239,7 @@
           await injectCss();
           await injectJs();
         } catch (error) {
-          console.error("Erro de carregamento camuflado:", error);
+          console.error("Erro de carregamento do jogo:", error);
         }
       })();
     })();
