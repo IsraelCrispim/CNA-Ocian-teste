@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #020817;
+  color: #fff;
+  font: 16px Trebuchet MS, Arial, sans-serif;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.bg-cyber-grid {
+  background-image: linear-gradient(to right, rgba(0, 240, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.circuit-lines {
+  background: radial-gradient(circle at 50% 50%, rgba(12, 19, 43, 0.8) 0%, rgba(5, 8, 20, 1) 100%);
+}
+
+.pixel-art {
+  image-rendering: pixelated;
+}
+
+.top {
+  background: rgba(3, 11, 24, 0.98);
+  border: 2px solid rgba(87, 217, 255, 0.85);
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  box-shadow: 0 0 12px rgba(87, 217, 255, 0.2);
+  backdrop-filter: blur(8px);
+  padding-top: 0.45rem;
+  padding-bottom: 0.45rem;
+}
+
+.logo {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(20px, 2vw, 30px);
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-shadow: 0 0 12px rgba(87, 217, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.15em;
+}
+
+.logo b {
+  color: #e31c23;
+}
+
+.student-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  border: 2px solid rgba(87, 217, 255, 0.9);
+  background: rgba(6, 18, 32, 0.7);
+  border-radius: 0.9rem;
+  padding: 0.45rem 0.8rem;
+  box-shadow: 0 0 16px rgba(87, 217, 255, 0.18);
+  color: #f8fafc;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  min-height: 42px;
+}
+
+.student-badge .user-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.95rem;
+  color: #dfeeff;
+}
+
+.student-badge .divider {
+  width: 1px;
+  height: 1.1rem;
+  background: rgba(148, 163, 184, 0.6);
+}
+
+.student-badge .stars {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #fbbf24;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.student-badge .stars i {
+  color: #fbbf24;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}

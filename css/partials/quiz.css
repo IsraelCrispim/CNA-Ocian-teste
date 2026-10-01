@@ -1,0 +1,217 @@
+.quiz {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+}
+
+.quizcard {
+  width: min(980px, 100%);
+  min-height: 520px;
+  background: rgba(6, 26, 69, 0.96);
+  border: 2px solid #239dff;
+  border-radius: 26px;
+  padding: 32px 28px 26px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.qtop {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 1000;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.bar {
+  height: 11px;
+  background: #020b20;
+  border-radius: 20px;
+  margin: 14px 0 23px;
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: #38ec85;
+  width: 0;
+}
+
+.question {
+  font-size: clamp(20px, 2vw, 30px);
+  font-weight: 900;
+  margin: 18px 0 22px;
+  line-height: 1.7;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, .35);
+}
+
+.answers {
+  display: grid;
+  gap: 12px;
+}
+
+.answer {
+  padding: 16px 18px;
+  text-align: left;
+  border: 2px solid #238ce0;
+  border-radius: 12px;
+  background: #08255b;
+  color: #fff;
+  font-weight: 900;
+  pointer-events: auto;
+  cursor: pointer;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.correct {
+  background: #08603a !important;
+  border-color: #41f28b !important;
+}
+
+.wrong {
+  background: #672134 !important;
+  border-color: #ff5065 !important;
+}
+
+.feedback {
+  min-height: 28px;
+  margin: 12px 0;
+  font-weight: 900;
+}
+
+.result {
+  text-align: center;
+}
+
+.big {
+  font-size: 80px;
+  animation: float 1.3s infinite;
+}
+
+.stars {
+  font-size: 55px;
+  color: #ffd52e;
+}
+
+.celebration-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(2, 6, 23, 0.62);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.celebration-popup {
+  width: min(680px, 92vw);
+  background: linear-gradient(180deg, rgba(12, 25, 54, 0.96), rgba(8, 14, 32, 0.96));
+  border: 2px solid rgba(250, 204, 21, 0.9);
+  border-radius: 1.5rem;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45), 0 0 26px rgba(250, 204, 21, 0.24);
+  padding: 1.5rem 1.25rem 1rem;
+  animation: celebrationPopup 0.35s ease-out;
+}
+
+.result-special {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 0 1rem;
+  padding: 0.5rem 0.25rem 0.75rem;
+  border-radius: 1rem;
+  animation: celebrationPulse 1.4s ease-in-out infinite alternate;
+}
+
+.result-special .mascot-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.result-special .mascot-left img {
+  width: clamp(175px, 28vw, 250px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 30px rgba(125, 211, 252, 0.3));
+}
+
+.result-special strong {
+  display: inline-block;
+  position: relative;
+  max-width: 420px;
+  padding: 1rem 1.1rem;
+  border-radius: 1.2rem;
+  background: linear-gradient(180deg, #fff9d9, #ffe38a);
+  color: #1b1b1b;
+  font-size: clamp(0.9rem, 1.6vw, 1.4rem);
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-align: center;
+  box-shadow: 0 12px 28px rgba(251, 191, 36, 0.25);
+}
+
+.result-special strong::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  bottom: 20px;
+  width: 22px;
+  height: 22px;
+  background: #ffe38a;
+  transform: rotate(45deg);
+  border-radius: 4px;
+}
+
+.celebration-close {
+  position: relative;
+  left: 140px;
+  display: block;
+  margin: 0.75rem auto 0;
+  padding: 0.9rem 1.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #facc15, #f97316);
+  color: #0a1020;
+  font-weight: 900;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-10px)
+  }
+}
+
+@keyframes celebrationPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.02); }
+}
+
+@keyframes celebrationPopup {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
