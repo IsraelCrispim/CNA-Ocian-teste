@@ -8,7 +8,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@500;600;700&display=swap"
+    rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
@@ -57,7 +58,8 @@
   </header>
 
   <main class="flex-grow flex items-center justify-center p-0 relative overflow-hidden">
-    <div id="celebrationOverlay" class="celebration-overlay hidden" aria-live="assertive" aria-modal="true" role="dialog"></div>
+    <div id="celebrationOverlay" class="celebration-overlay hidden" aria-live="assertive" aria-modal="true"
+      role="dialog"></div>
 
     <section id="home" class="home w-full">
       <div class="home-scene">
@@ -81,7 +83,7 @@
 
           <div class="field">
             <label>Sua idade</label>
-            <select id="age"
+            <select id="age" onchange="toggleAdultAge()"
               style="width:100%;background:rgba(7,15,31,0.9);border:2px solid rgba(0,240,255,0.8);border-radius:0.85rem;padding:0.9rem 0.95rem;color:white;font-size:1rem;outline:none;">
               <option value="">Selecione sua faixa etária...</option>
               <option value="8 - 10 anos (Kids)">8 - 10 anos (Kids)</option>
@@ -89,6 +91,11 @@
               <option value="14 - 16 anos (Young)">14 - 16 anos (Young)</option>
               <option value="18+ anos (Adult)">18+ anos (Adult)</option>
             </select>
+          </div>
+
+          <div id="adultAgeField" class="field hidden">
+            <label for="adultAge">Digite sua idade</label>
+            <input id="adultAge" type="number" min="18" step="1" placeholder="Ex.: 25" />
           </div>
 
           <button class="btn" onclick="start()">AVANÇAR</button>
@@ -163,13 +170,15 @@
         <div id="resultSpecial" class="result-special hidden"></div>
         <div id="stars" class="stars"></div>
 
-        <div id="shareStatus" style="margin-top: 0.9rem; min-height: 1.2rem; color: #a7f3d0; font-size: 0.82rem; text-align: center; display: none;"></div>
+        <div id="shareStatus"
+          style="margin-top: 0.9rem; min-height: 1.2rem; color: #a7f3d0; font-size: 0.82rem; text-align: center; display: none;">
+        </div>
         <button class="btn red full" onclick="sendResultByWhatsapp()">COMPARTILHAR RESULTADO</button>
         <button class="btn red full" onclick="back()">VOLTAR À ESCOLHA</button>
       </div>
 
     </section>
-    
+
   </main>
 
   <footer
