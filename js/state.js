@@ -1,4 +1,4 @@
-const S = { name: "", age: "", m: "", stage: 0, q: 0, score: 0, totalScore: 0, answered: false, responses: [] }, $ = id => document.getElementById(id);
+const S = { name: "", age: "", ageYears: null, m: "", stage: 0, q: 0, score: 0, totalScore: 0, answered: false, responses: [] }, $ = id => document.getElementById(id);
 
 function currentGameData() {
   const base = JSON.parse(JSON.stringify(D[S.m] || D.eng));
